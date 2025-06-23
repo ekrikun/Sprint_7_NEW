@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +45,7 @@ public class CreateOrderTest {
         metroStation = RandomStringUtils.randomAlphabetic(10);
         phone = RandomStringUtils.randomNumeric(11);
         rentTime = RandomStringUtils.randomNumeric(1);
-        deliveryDate = "2022-06-06";
+        deliveryDate = "2025-06-06";
         comment = RandomStringUtils.randomAlphabetic(10);
 
         createOrderSteps

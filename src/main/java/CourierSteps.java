@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 
@@ -9,7 +10,8 @@ public class CourierSteps {
     private static final String LOGIN = "/api/v1/courier/login";
     private static final String DELETE = "/api/v1/courier/{id}";
 
-    public ValidatableResponse createCourier(String login, String password, String firstName) {
+        @Step("Создать курьера")
+        public ValidatableResponse createCourier(String login, String password, String firstName) {
         return given().log().ifValidationFails()
                 .contentType(ContentType.JSON)
                 .baseUri(HOST)
@@ -22,7 +24,7 @@ public class CourierSteps {
                 .post(COURIER)
                 .then();
     }
-
+    @Step("Авторизоватоься под логином и паролем курьера")
     public ValidatableResponse loginCourier(String login, String password) {
         return given()
                 .contentType(ContentType.JSON)
@@ -35,7 +37,7 @@ public class CourierSteps {
                 .post(LOGIN)
                 .then();
     }
-
+    @Step("Удалить курьера")
     public ValidatableResponse deleteCourier(int id) {
         return given()
                 .contentType(ContentType.JSON)

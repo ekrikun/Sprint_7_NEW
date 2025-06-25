@@ -1,6 +1,11 @@
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Test;
+import static org.apache.http.HttpStatus.SC_CREATED;
+import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
+import static org.apache.http.HttpStatus.SC_CONFLICT;
+
+
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -11,6 +16,7 @@ public class CreateCourierTests {
     private String password;
     private String firstName;
 
+
     @Test
     public void shouldReturnOkTrue() {
         login = RandomStringUtils.randomAlphabetic(10);
@@ -19,20 +25,32 @@ public class CreateCourierTests {
 
         courierSteps
                 .createCourier(login, password, firstName)
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", is(true));
     }
 
     @Test
-    public void mandatoryFieldsShouldBeFilled() {
+    public void mandatoryFieldsShouldBeFilledLogn() {
         password = RandomStringUtils.randomAlphabetic(10);
         firstName = RandomStringUtils.randomAlphabetic(10);
 
         courierSteps
                 .createCourier("", password, firstName)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", is("Недостаточно данных для создания учетной записи"));
     }
+
+    @Test
+    public void mandatoryFieldsShouldBeFilledPassword() {
+        password = RandomStringUtils.randomAlphabetic(10);
+        firstName = RandomStringUtils.randomAlphabetic(10);
+
+        courierSteps
+                .createCourier(login, "", firstName)
+                .statusCode(SC_BAD_REQUEST)
+                .body("message", is("Недостаточно данных для создания учетной записи"));
+    }
+
 
     @Test
     public void duplicateLoginNotAllowed() {
@@ -43,7 +61,7 @@ public class CreateCourierTests {
                 .createCourier(login, password, firstName);
         courierSteps
                 .createCourier(login, password, firstName)
-                .statusCode(409)
+                .statusCode(SC_CONFLICT)
                 .body("message", is("Этот логин уже используется. Попробуйте другой."));
 
     }

@@ -29,7 +29,7 @@ public class CreateOrderTest {
                 {new String[]{"BLACK", "GREY"}},
                 {new String[]{"GREY"}},
                 {new String[]{"BLACK"}},
-                {new String[]{"null"}},
+                {new String[]{}},
         });
     }
 

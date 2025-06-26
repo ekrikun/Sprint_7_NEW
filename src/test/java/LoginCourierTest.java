@@ -2,6 +2,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.http.HttpStatus.SC_NOT_FOUND;
@@ -25,7 +26,7 @@ public class LoginCourierTest {
 
         courierSteps.createCourier(login, password, firstName);
 
-          }
+    }
 
     @Test
     public void shouldReturnId() {
@@ -49,7 +50,9 @@ public class LoginCourierTest {
                 .loginCourier("", password)
                 .statusCode(SC_BAD_REQUEST)
                 .body("message", is("Недостаточно данных для входа"));
-    }   @Test
+    }
+
+    @Test
     public void mandatoryFieldsShouldBeFilledPassword() {
 
         courierSteps
